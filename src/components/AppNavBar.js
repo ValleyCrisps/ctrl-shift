@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class AppNavBar extends Component {
   state = {
-    isActive: false
+    isActive: false,
   };
 
   toggleNav = () => {
@@ -31,7 +31,7 @@ class AppNavBar extends Component {
         <div
           id="navbar"
           className={
-            this.state.isActive ? "navbar-menu is-active" : "navbar-menu"
+            this.state.isActive ? 'navbar-menu is-active' : 'navbar-menu'
           }
         >
           <div className="navbar-start">

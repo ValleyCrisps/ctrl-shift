@@ -1,19 +1,20 @@
-import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 
-import ShiftTile from "./ShiftTile";
+import ShiftTile from './ShiftTile';
 
-import "datejs";
-const electron = window.require("electron");
+import 'datejs';
+const electron = window.require('electron');
 const ipc = electron.ipcRenderer;
 
 class Calendar extends Component {
   state = {
-    date: new Date().toString("yyyy-MM-dd")
+    date: new Date().toString('yyyy-MM-dd'),
+    shifts: [],
   };
 
   generateTitle = date => {
-    return <h1 id="week-title">{`${date.toString("yyyy-MM-dd")}`}</h1>;
+    return <h1 id="week-title">{`${date.toString('yyyy-MM-dd')}`}</h1>;
   };
 
   generateWeekHTML = date => {
@@ -22,12 +23,15 @@ class Calendar extends Component {
     let day = new Date(date);
     day.prev().monday();
     let calendar = vector.map(i => {
+      let dailyShifts = this.state.shifts.filter(
+        shift => shift.shift_date === day.toString('yyyy-MM-dd')
+      );
       let column = (
         <div
-          key={`${day.toString("yyyyMMdd")}`}
+          key={`${day.toString('yyyyMMdd')}`}
           className={`tile is-parent is-vertical day-${i} column`}
         >
-          <h1>{`${day.toString("dddd")}`}</h1>
+          <h1>{`${day.toString('dddd')}`}</h1>
           {!day.today() ? (
             <div className="tile is-child date has-background-primary">
               <p>{`${day.getDate()}`}</p>
@@ -37,13 +41,9 @@ class Calendar extends Component {
               <p>{`${day.getDate()}`}</p>
             </div>
           )}
-          <ShiftTile
-            date={new Date()}
-            id=""
-            type="8:00-16:30"
-            notes=""
-            needed="5"
-          />
+          {dailyShifts.map(shift => {
+            return <ShiftTile shift={shift} key={shift.shift_id} />;
+          })}
         </div>
       );
       day.add(1).day();
@@ -53,32 +53,22 @@ class Calendar extends Component {
   };
 
   componentDidMount() {
-    ipc.send("shifts:get-week", this.state.date);
-    ipc.on("shifts:sent-week", (event, data) => console.log(data));
+    ipc.send('shifts:get-week', this.state.date);
+    ipc.on('shifts:sent-week', (event, data) => {
+      console.log(data);
+      this.setState({ shifts: data });
+      console.log(this.state.shifts);
+    });
   }
 
   componentWillUnmount() {
-    ipc.removeListener("shifts:sent-week", this.handleSitesSuccess);
-  }
-
-  handleSitesSuccess(event, args) {
-    console.log("data", args.data);
-    // props.dispatch(actions.change('sites', args.data));
+    ipc.removeListener('shifts:sent-week', this.handleSitesSuccess);
   }
 
   render() {
-    // const shiftTypes = require('./utilities/shiftTypes');
-    // const append = require('./utilities/append');
-
     // gets current date
     const today = new Date();
 
-    // set the content of calendar div
-
-    // generateWeekHTML(today);
-    // document.addEventListener("DOMContentLoaded", () => {
-    //   ipc.send("needed:request", date);
-    // });
     //
     // // Calendar navigation
     // const prevButton = document.getElementById('prev');

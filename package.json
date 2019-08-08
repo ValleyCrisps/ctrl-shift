@@ -44,6 +44,7 @@
     "electron-builder": "^21.2.0",
     "electron-is-dev": "^1.1.0",
     "electron-rebuild": "^1.8.5",
+    "prettier": "1.18.2",
     "react-router-dom": "^5.0.1",
     "wait-on": "^3.3.0"
   },

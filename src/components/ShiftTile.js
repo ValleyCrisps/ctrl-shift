@@ -2,18 +2,22 @@ import React, { Component } from "react";
 
 class ShiftTile extends Component {
   render() {
-    const shift = this.props;
-    const day = new Date(shift.date);
+    const {
+      shift_id,
+      shift_date,
+      shift_start,
+      shift_end,
+      needed,
+      shift_notes
+    } = this.props.shift;
     return (
-      <div
-        id={`shift-${shift.id}`}
-        className={`tile is-child box shift type-${shift.type}`}
-      >
-        <h2>{`${shift.type}`}</h2>
-        <p className="note">{`${shift.notes}`}</p>
+      <div id={`shift-${shift_id}`} className={`tile is-child box shift`}>
+        <h2>{`${shift_start}-${shift_end}`}</h2>
+        <p className="note">{`${shift_notes}`}</p>
         <p className="required">
-          Required: <span className="needed-span">{`${shift.needed}`}</span>
+          Required: <span className="needed-span">{`${needed}`}</span>
         </p>
+
         <p className="assigned">
           Assigned: <span className="assigned-span">0</span>
         </p>

@@ -1,10 +1,10 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Home from "./components/Home";
-import NotFound from "./components/NotFound";
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './components/Home';
+import NotFound from './components/NotFound';
 
-import "./App.css";
-import "./style/sass/style.css";
+import './App.css';
+import './style/sass/style.css';
 
 const routing = (
   <BrowserRouter>

@@ -9,21 +9,21 @@ class Home extends Component {
 
   render() {
     return (
-      <div className='App'>
+      <div className="App">
         <AppNavBar />
 
-        <div className='container'>
-          <button id='save-assigned' className='button save is-info'>
+        <div className="container">
+          <button id="save-assigned" className="button save is-info">
             Save
           </button>
-          <div className='navigation'>
-            <button id='prev' className='button is-info' />
-            <button id='today' className='button is-info'>
+          <div className="navigation">
+            <button id="prev" className="button is-info" />
+            <button id="today" className="button is-info">
               Today
             </button>
-            <button id='next' className='button is-info' />
+            <button id="next" className="button is-info" />
           </div>
-          
+
           <Calendar />
         </div>
       </div>

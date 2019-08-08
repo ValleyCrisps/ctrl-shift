@@ -9141,4 +9141,9 @@ label.panel-block:hover {
   padding: 3rem 1.5rem 6rem;
 }
 
+.date {
+  min-height: 2rem;
+  max-height: 2rem;
+}
+
 /*# sourceMappingURL=style.css.map */
