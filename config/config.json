@@ -1,0 +1,14 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./tgg.db"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "./tgg.db"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "./tgg.db"
+  }
+}

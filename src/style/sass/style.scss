@@ -1,0 +1,125 @@
+@charset "utf-8";
+
+$box-padding: 0.5rem;
+
+@import "../../../node_modules/bulma/bulma.sass";
+
+// // COLOUR VARIABLES
+// $light-green: rgba(106, 255, 103, 0.7);
+// $light-red: rgba(255, 110, 110, 0.7);
+// $light-yellow: rgba(255, 241, 144, 0.7);
+// $grey: rgb(205, 205, 205);
+//
+// body {
+//   background: lighten($grey, 10);
+//   min-height: 100vh;
+// }
+//
+// nav, .navbar {
+//   background-color: rgb(172, 189, 186);
+//   font-weight: bold;
+// }
+//
+// .navigation {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   margin: 1rem 0;
+// }
+//
+// .save {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   margin: 1rem 0;
+// }
+//
+// .title {
+//   padding-top: 1rem;
+// }
+//
+// .day {
+//   font-weight: bold;
+// }
+//
+// .column {
+//   display: flex;
+//   flex-flow: column;
+// }
+//
+// input {
+//   margin: 0 0.3rem;
+// }
+//
+// .date{
+//   min-height: 2rem;
+//   max-height: 2rem;
+// }
+//
+// .shifts {
+//   margin-bottom: 0.3rem;
+//   font-weight: 600;
+// }
+//
+// h2 {
+//   text-align: center;
+//   font-weight: 600;
+//   background-color: yellow;
+// }
+//
+// .required, .assigned {
+//   font-weight: 600;
+// }
+//
+// .box {
+//   &.green {
+//     // background-color: $light-green;
+//     border: 2px solid $light-green;
+//   }
+//   &.red {
+//     // background-color: $light-red;
+//     border: 2px solid $light-red;
+//   }
+//
+//   margin: 0.2rem;
+// }
+//
+// .container {
+//   padding: 0.2rem;
+// }
+//
+// .wrap {
+//   margin: 0.2rem;
+//   flex-wrap: wrap;
+//
+//   .block {
+//     display: inline-block;
+//     margin-bottom: 0;
+//     padding: 0;
+//   }
+//
+//   .checkbox {
+//     display: inline-block;
+//     padding: 0.2rem;
+//     font-size: 0.9rem;
+//   }
+// }
+//
+// .delete {
+//   display: inline-block;
+//   background-color: rgba(217, 16, 3, 0.8);
+//   vertical-align: middle;
+// }
+//
+// #new-agent, #new-shift {
+//   margin: 4rem auto;
+//   width: 90%;
+// }
+//
+// .text-red {
+//   color: red;
+// }
+//
+// .note {
+//   font-style: italic;
+// }
