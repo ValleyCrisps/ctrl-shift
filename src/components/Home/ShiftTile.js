@@ -4,7 +4,6 @@ class ShiftTile extends Component {
   render() {
     const {
       shift_id,
-      shift_date,
       shift_start,
       shift_end,
       needed,

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 
 import ShiftTile from './ShiftTile';
 
@@ -9,12 +8,11 @@ const ipc = electron.ipcRenderer;
 
 class Calendar extends Component {
   state = {
-    date: new Date().toString('yyyy-MM-dd'),
     shifts: [],
   };
 
   generateTitle = date => {
-    return <h1 id="week-title">{`${date.toString('yyyy-MM-dd')}`}</h1>;
+    return <h1 className="title has-text-centered">{`${date.toString('yyyy-MM-dd')}`}</h1>;
   };
 
   generateWeekHTML = date => {
@@ -26,12 +24,13 @@ class Calendar extends Component {
       let dailyShifts = this.state.shifts.filter(
         shift => shift.shift_date === day.toString('yyyy-MM-dd')
       );
+      // create column for weekday
       let column = (
         <div
           key={`${day.toString('yyyyMMdd')}`}
           className={`tile is-parent is-vertical day-${i} column`}
         >
-          <h1>{`${day.toString('dddd')}`}</h1>
+          <h2>{`${day.toString('dddd')}`}</h2>
           {!day.today() ? (
             <div className="tile is-child date has-background-primary">
               <p>{`${day.getDate()}`}</p>
@@ -41,6 +40,7 @@ class Calendar extends Component {
               <p>{`${day.getDate()}`}</p>
             </div>
           )}
+          {/* add any shifts for the day as separate tiles */}
           {dailyShifts.map(shift => {
             return <ShiftTile shift={shift} key={shift.shift_id} />;
           })}
@@ -53,11 +53,9 @@ class Calendar extends Component {
   };
 
   componentDidMount() {
-    ipc.send('shifts:get-week', this.state.date);
+    ipc.send('shifts:get-week', this.props.date);
     ipc.on('shifts:sent-week', (event, data) => {
-      console.log(data);
       this.setState({ shifts: data });
-      console.log(this.state.shifts);
     });
   }
 
@@ -66,34 +64,7 @@ class Calendar extends Component {
   }
 
   render() {
-    // gets current date
-    const today = new Date();
 
-    //
-    // // Calendar navigation
-    // const prevButton = document.getElementById('prev');
-    // const todayButton = document.getElementById('today');
-    // const nextButton = document.getElementById('next');
-    //
-    // prevButton.addEventListener('click', () => {
-    //   date.add(-7).day();
-    //   calendar.innerHTML = '';
-    //   generateWeekHTML(date);
-    //   ipc.send('needed:request', date);
-    // });
-    //
-    // todayButton.addEventListener('click', () => {
-    //   calendar.innerHTML = '';
-    //   generateWeekHTML(today);
-    //   ipc.send('needed:request', today);
-    // });
-    //
-    // nextButton.addEventListener('click', () => {
-    //   date.add(7).day();
-    //   calendar.innerHTML = '';
-    //   generateWeekHTML(date);
-    //   ipc.send('needed:request', date);
-    // });
     //
     // ipc.on('shifts:sent', function(event, shifts) {
     //   shifts.forEach(shift => {
@@ -233,9 +204,11 @@ class Calendar extends Component {
     //
 
     return (
-      <div className="calendar">
-        {this.generateTitle(this.state.date)}
-        <div className="columns">{this.generateWeekHTML(today)}</div>
+      <div>
+        <div className="calendar">
+          {this.generateTitle(this.props.date)}
+          <div className="columns">{this.generateWeekHTML(this.props.date)}</div>
+        </div>
       </div>
     );
   }

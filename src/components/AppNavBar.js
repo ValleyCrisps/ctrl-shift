@@ -13,7 +13,7 @@ class AppNavBar extends Component {
     return (
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="./index.html">
+          <a className="navbar-item" href="./">
             logo
           </a>
           <button
@@ -35,17 +35,17 @@ class AppNavBar extends Component {
           }
         >
           <div className="navbar-start">
-            <a className="navbar-item is-active" href="./index.html">
+            <a className="navbar-item is-active" href="./">
               Calendar
             </a>
-            <a className="navbar-item" href="./agents.html">
-              Agents
-            </a>
-            <a className="navbar-item" href="./shifts.html">
+            <a className="navbar-item" href="./shifts">
               Shifts
             </a>
-            <a className="navbar-item" href="./availabilities.html">
+            <a className="navbar-item" href="./availabilities">
               Availabilities
+            </a>
+            <a className="navbar-item" href="./agents">
+              Agents
             </a>
           </div>
           <div className="navbar-end" />

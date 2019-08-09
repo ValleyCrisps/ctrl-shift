@@ -6,13 +6,6 @@ const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
 
-const { ipcMain } = require('electron');
-const Sequelize = require('sequelize');
-require('../src/config/database.js');
-require('datejs');
-const Op = Sequelize.Op;
-const Shifts = require('../src/models/Shifts');
-
 let mainWindow;
 
 function createWindow() {
@@ -46,10 +39,45 @@ app.on('activate', () => {
 });
 
 //
-// API
+// HANDLE SUBWINDOWS
 //
+const { ipcMain } = require('electron');
+
+// ipcMain.on('addShiftButton:clicked', () => {
+//   const addShiftWindow = new Window({
+//     file: `file://${path.join(__dirname, '../build/addShift.html')}`,
+//     width: 800,
+//     height: 600
+//   });
+// });
+
+
+//
+// HANDLE DATABASE COMMUNICATIONS
+//
+const Sequelize = require('sequelize');
+require('../src/config/database.js');
+require('datejs');
+const Op = Sequelize.Op;
+
+// Import models
+const Shifts = require('../src/models/Shifts');
+
+// get all shifts
+ipcMain.on('shifts:get-all', e => {
+  Shifts.findAll()
+    .map(el => el.get({ plain: true }))
+    .then(rows => {
+      e.sender.send('shifts:sent-all', rows);
+    })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+});
+
+// get weekly shifts
 ipcMain.on('shifts:get-week', (e, date) => {
-  console.log('got it');
   let monday = new Date(date);
   monday.prev().monday();
   // get list of shifts for the week
@@ -69,7 +97,6 @@ ipcMain.on('shifts:get-week', (e, date) => {
     .map(el => el.get({ plain: true }))
     .then(rows => {
       e.sender.send('shifts:sent-week', rows);
-      console.log('sent back', rows);
     })
     .catch(err => {
       console.log(err);
