@@ -9145,6 +9145,13 @@ label.panel-block:hover {
   display: none;
 }
 
+.icon-custom {
+  display: inline-block;
+  vertical-align: middle;
+  height: 1.5rem;
+  margin-right: 0.3rem;
+}
+
 .date {
   min-height: 2rem;
   max-height: 2rem;

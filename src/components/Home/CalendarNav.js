@@ -21,26 +21,32 @@ class CalendarNav extends Component {
 
   render() {
     return (
-      <div className="navigation has-text-right">
-        <button
-          id="prev"
-          className="button is-info"
-          onClick={this.handleClick}
-          value="-7"
-        >
-          Prev
-        </button>
-        <button id="today" className="button is-info" onClick={this.goToToday}>
-          Today
-        </button>
-        <button
-          id="next"
-          className="button is-info"
-          onClick={this.handleClick}
-          value="7"
-        >
-          Next
-        </button>
+      <div className="navigation">
+        <div className="buttons has-addons is-right">
+          <button
+            id="prev"
+            className="button is-outlined is-info"
+            onClick={this.handleClick}
+            value="-7"
+          >
+            Prev
+          </button>
+          <button
+            id="today"
+            className="button is-outlined is-info"
+            onClick={this.goToToday}
+          >
+            Today
+          </button>
+          <button
+            id="next"
+            className="button is-outlined is-info"
+            onClick={this.handleClick}
+            value="7"
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
   }

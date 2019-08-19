@@ -73,7 +73,7 @@ class Calendar extends Component {
     });
   }
 
-  // componentDidUpdate() {
+  // covmponentDidUpdate() {
   //   console.log('hey!');
   //   ipc.send('shifts:get-week', this.props.date);
   //   ipc.on('shifts:sent-week', (event, data) => {

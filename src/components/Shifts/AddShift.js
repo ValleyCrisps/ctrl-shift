@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+import calendarPlus from '../../images/calendar-plus.svg';
+
+const electron = window.require('electron');
+const ipc = electron.ipcRenderer;
+
 class AddShift extends Component {
   state = { hidden: true };
 
@@ -8,14 +13,29 @@ class AddShift extends Component {
   };
 
   submitShift = event => {
-    console.log(event);
+    event.preventDefault();
+    const shift = {
+      date: document.getElementById('shift-date').value,
+      start: document.getElementById('shift-start').value,
+      end: document.getElementById('shift-end').value,
+      needed: document.getElementById('shift-needed').value,
+      notes: document.getElementById('shift-notes').value,
+    };
+    console.log(shift);
+    ipc.send('shift:add', shift);
   };
 
   render() {
+    const addButton = (
+      <div>
+        <img className="icon-custom" src={calendarPlus} alt="icon-plus" />
+        Add shift
+      </div>
+    );
     return (
       <div>
         <button className="button" onClick={this.toggle}>
-          {this.state.hidden ? '(icon plus) Add new shift' : 'Hide'}
+          {this.state.hidden ? addButton : 'Hide'}
         </button>
 
         <div id="add-form" className={this.state.hidden ? 'hidden' : ''}>
@@ -38,24 +58,14 @@ class AddShift extends Component {
                 <label className="label">Shift start</label>
               </div>
               <div className="field-body">
-                <input
-                  id="shift-1"
-                  className="shift-type radio"
-                  type="time"
-                  name="shift-type"
-                />
+                <input id="shift-start" type="time" />
               </div>
               <div className="field is-horizontal">
                 <div className="field-label">
                   <label className="label">Shift end</label>
                 </div>
                 <div className="field-body">
-                  <input
-                    id="shift-1"
-                    className="shift-type radio"
-                    type="time"
-                    name="shift-type"
-                  />
+                  <input id="shift-end" type="time" />
                 </div>
               </div>
             </div>

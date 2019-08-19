@@ -112,6 +112,22 @@ ipcMain.on('shifts:get-week', (e, date) => {
     });
 });
 
+// add shift
+ipcMain.on('shift:add', (e, shift) => {
+  Shifts.create({
+    shift_date: shift.date,
+    shift_start: shift.start,
+    shift_end: shift.end,
+    needed: shift.needed,
+    shift_notes: shift.notes,
+  })
+    .then(console.log('done'))
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+});
+
 // AGENTS
 // get all agents
 ipcMain.on('agents:get-all', e => {
