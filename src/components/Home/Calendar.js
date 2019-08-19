@@ -11,9 +11,13 @@ class Calendar extends Component {
     shifts: [],
   };
 
-  generateTitle = date => {
-    return <h1 className="title has-text-centered">{`${date.toString('yyyy-MM-dd')}`}</h1>;
-  };
+  // generateTitle = date => {
+  //   return (
+  //     <h1 className="title has-text-centered">{`${date.toString(
+  //       'yyyy-MM-dd'
+  //     )}`}</h1>
+  //   );
+  // };
 
   generateWeekHTML = date => {
     // generates the html code for the row containing the dates of the current week
@@ -56,15 +60,33 @@ class Calendar extends Component {
     ipc.send('shifts:get-week', this.props.date);
     ipc.on('shifts:sent-week', (event, data) => {
       this.setState({ shifts: data });
+      console.log(data);
     });
   }
 
-  componentWillUnmount() {
-    ipc.removeListener('shifts:sent-week', this.handleSitesSuccess);
+  talkToDatabase() {
+    ipc.send('shifts:get-week', this.props.date);
+    ipc.on('shifts:sent-week', (event, data) => {
+      this.setState({ shifts: data });
+      console.log(data);
+      this.props.sendButtonState(false);
+    });
   }
 
-  render() {
+  // componentDidUpdate() {
+  //   console.log('hey!');
+  //   ipc.send('shifts:get-week', this.props.date);
+  //   ipc.on('shifts:sent-week', (event, data) => {
+  //     this.setState({ shifts: data });
+  //     console.log(data);
+  //   });
+  // }
 
+  // componentWillUnmount() {
+  //   ipc.removeListener('shifts:sent-week', this.handleSitesSuccess);
+  // }
+
+  render() {
     //
     // ipc.on('shifts:sent', function(event, shifts) {
     //   shifts.forEach(shift => {
@@ -203,11 +225,23 @@ class Calendar extends Component {
     // }
     //
 
+    // console.log('hey!');
+    // ipc.send('shifts:get-week', this.props.date);
+    // ipc.on('shifts:sent-week', (event, data) => {
+    //   this.setState({ shifts: data });
+    //   console.log(data);
+    // });
+
     return (
       <div>
         <div className="calendar">
-          {this.generateTitle(this.props.date)}
-          <div className="columns">{this.generateWeekHTML(this.props.date)}</div>
+          {/*this.generateTitle(this.props.date)*/}
+          <div className="columns">
+            {this.props.buttonPressed
+              ? this.talkToDatabase()
+              : console.log('oh')}
+            {this.generateWeekHTML(this.props.date)}
+          </div>
         </div>
       </div>
     );

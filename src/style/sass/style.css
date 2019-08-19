@@ -9141,6 +9141,10 @@ label.panel-block:hover {
   padding: 3rem 1.5rem 6rem;
 }
 
+.hidden {
+  display: none;
+}
+
 .date {
   min-height: 2rem;
   max-height: 2rem;

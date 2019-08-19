@@ -6,11 +6,15 @@ import Calendar from './Calendar';
 class Home extends Component {
   state = {
     date: new Date().toString('yyyy-MM-dd'),
+    buttonPressed: false,
   };
 
   getDate = date => {
     this.setState({ date: date });
   };
+
+  getButtonState = (state) =>
+    this.setState({ buttonPressed: state });
 
   render() {
     return (
@@ -20,8 +24,16 @@ class Home extends Component {
           <button id="save-assigned" className="button save is-info">
             Save
           </button>
-          <CalendarNav date={this.state.date} sendDate={this.getDate} />
-          <Calendar date={this.state.date} />
+          <CalendarNav
+            date={this.state.date}
+            sendDate={this.getDate}
+            sendButtonState={this.getButtonState}
+          />
+          <Calendar
+            date={this.state.date}
+            buttonPressed={this.state.buttonPressed}
+            sendButtonState={this.getButtonState}
+          />
         </div>
       </div>
     );

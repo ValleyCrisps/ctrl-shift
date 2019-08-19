@@ -44,13 +44,19 @@ app.on('activate', () => {
 const { ipcMain } = require('electron');
 
 // ipcMain.on('addShiftButton:clicked', () => {
-//   const addShiftWindow = new Window({
-//     file: `file://${path.join(__dirname, '../build/addShift.html')}`,
-//     width: 800,
-//     height: 600
+//   const addShiftWindow = new BrowserWindow({
+//     width: 900,
+//     height: 680,
+//     webPreferences: {
+//       nodeIntegration: true,
+//     },
 //   });
+//   addShiftWindow.loadURL(
+//     isDev
+//       ? 'http://localhost:3000'
+//       : `file://${path.join(__dirname, '../build/addShift.html')}`
+//   );
 // });
-
 
 //
 // HANDLE DATABASE COMMUNICATIONS
@@ -62,7 +68,9 @@ const Op = Sequelize.Op;
 
 // Import models
 const Shifts = require('../src/models/Shifts');
+const Agents = require('../src/models/Agents');
 
+// SHIFTS
 // get all shifts
 ipcMain.on('shifts:get-all', e => {
   Shifts.findAll()
@@ -97,6 +105,20 @@ ipcMain.on('shifts:get-week', (e, date) => {
     .map(el => el.get({ plain: true }))
     .then(rows => {
       e.sender.send('shifts:sent-week', rows);
+    })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+});
+
+// AGENTS
+// get all agents
+ipcMain.on('agents:get-all', e => {
+  Agents.findAll()
+    .map(el => el.get({ plain: true }))
+    .then(rows => {
+      e.sender.send('agents:sent-all', rows);
     })
     .catch(err => {
       console.log(err);

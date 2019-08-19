@@ -2,8 +2,11 @@
 
 $box-padding: 0.5rem;
 
-@import "../../../node_modules/bulma/bulma.sass";
+@import '../../../node_modules/bulma/bulma.sass';
 
+.hidden {
+  display: none;
+}
 // // COLOUR VARIABLES
 // $light-green: rgba(106, 255, 103, 0.7);
 // $light-red: rgba(255, 110, 110, 0.7);
@@ -51,7 +54,7 @@ $box-padding: 0.5rem;
 //   margin: 0 0.3rem;
 // }
 //
-.date{
+.date {
   min-height: 2rem;
   max-height: 2rem;
 }
