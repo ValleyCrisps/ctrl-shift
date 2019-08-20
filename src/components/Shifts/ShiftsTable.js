@@ -8,6 +8,12 @@ class ShiftsTable extends Component {
     shifts: [],
   };
 
+  handleDelete = id => {
+    console.log(id);
+    ipc.send('shifts:delete', id);
+    ipc.send('shifts:get-all');
+  };
+
   componentDidMount() {
     ipc.send('shifts:get-all');
     ipc.on('shifts:sent-all', (event, data) => {
@@ -31,7 +37,10 @@ class ShiftsTable extends Component {
           <td>0</td>
           <td>{shift.shift_notes}</td>
           <td className="has-text-centered">
-            <button className="delete"></button>
+            <button
+              className="delete"
+              onClick={() => this.handleDelete(shift.shift_id)}
+            ></button>
           </td>
         </tr>
       );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import AddAgent from './AddAgent';
 import AgentsTable from './AgentsTable';
 
 class Agents extends Component {
@@ -7,23 +8,16 @@ class Agents extends Component {
 
   render() {
     return (
-      <div>
-        <h1 class="title has-text-centered">Agents</h1>
-        <section class="container">
-          <button id="add-button" class="button is-info">
-            Add a new agent
-          </button>
-        </section>
+      <div className="container">
+        <h1 className="title has-text-centered">Agents</h1>
 
-        <section class="section">
-          <div class="container">
-            <div class="columns is-centered">
-              <div class="column">
-                <AgentsTable />
-              </div>
-            </div>
+        <AddAgent />
+
+        <div className="columns is-centered">
+          <div className="column">
+            <AgentsTable />
           </div>
-        </section>
+        </div>
       </div>
     );
   }

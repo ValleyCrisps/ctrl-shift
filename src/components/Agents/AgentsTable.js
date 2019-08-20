@@ -8,6 +8,12 @@ class AgentsTable extends Component {
     agents: [],
   };
 
+  handleDelete = id => {
+    console.log(id);
+    ipc.send('agents:delete', id);
+    ipc.send('agents:get-all');
+  };
+
   componentDidMount() {
     ipc.send('agents:get-all');
     ipc.on('agents:sent-all', (event, data) => {
@@ -31,7 +37,10 @@ class AgentsTable extends Component {
           <td>{agent.never_on}</td>
           <td>{agent.agent_notes}</td>
           <td className="has-text-centered">
-            <button className="delete"></button>
+            <button
+              className="delete icon-custom"
+              onClick={() => this.handleDelete(agent.agent_id)}
+            ></button>
           </td>
         </tr>
       );
@@ -47,7 +56,7 @@ class AgentsTable extends Component {
             <th>Visa expiration date</th>
             <th>Never available on</th>
             <th>Notes</th>
-            <th class="has-text-centered">Delete</th>
+            <th className="has-text-centered">Delete</th>
           </tr>
         </thead>
         <tbody id="agents-list">{rows}</tbody>

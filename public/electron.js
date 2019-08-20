@@ -113,13 +113,27 @@ ipcMain.on('shifts:get-week', (e, date) => {
 });
 
 // add shift
-ipcMain.on('shift:add', (e, shift) => {
+ipcMain.on('shifts:add', (e, shift) => {
   Shifts.create({
     shift_date: shift.date,
     shift_start: shift.start,
     shift_end: shift.end,
     needed: shift.needed,
     shift_notes: shift.notes,
+  })
+    .then(console.log('done'))
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+});
+
+// delete shift
+ipcMain.on('shifts:delete', (e, id) => {
+  Shifts.destroy({
+    where: {
+      shift_id: id,
+    },
   })
     .then(console.log('done'))
     .catch(err => {
@@ -136,6 +150,36 @@ ipcMain.on('agents:get-all', e => {
     .then(rows => {
       e.sender.send('agents:sent-all', rows);
     })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+});
+
+// add agent
+ipcMain.on('agents:add', (e, agent) => {
+  Agents.create({
+    name: agent.name,
+    surname: agent.surname,
+    visa_expiration: agent.visaExpiration,
+    never_on: agent.neverOn,
+    agent_notes: agent.notes,
+  })
+    .then(console.log('done'))
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+});
+
+// delete agent
+ipcMain.on('agents:delete', (e, id) => {
+  Agents.destroy({
+    where: {
+      agent_id: id,
+    },
+  })
+    .then(console.log('done'))
     .catch(err => {
       console.log(err);
       throw err;
