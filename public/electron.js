@@ -69,11 +69,12 @@ const Op = Sequelize.Op;
 // Import models
 const Shifts = require('../src/models/Shifts');
 const Agents = require('../src/models/Agents');
+const Availabilities = require('../src/models/Availabilities');
 
 // SHIFTS
 // get all shifts
 ipcMain.on('shifts:get-all', e => {
-  Shifts.findAll()
+  Shifts.findAll({ order: [['shift_date', 'DESC']] })
     .map(el => el.get({ plain: true }))
     .then(rows => {
       e.sender.send('shifts:sent-all', rows);
@@ -101,6 +102,7 @@ ipcMain.on('shifts:get-week', (e, date) => {
         ],
       },
     },
+    order: [['shift_date', 'DESC']],
   })
     .map(el => el.get({ plain: true }))
     .then(rows => {
@@ -145,7 +147,7 @@ ipcMain.on('shifts:delete', (e, id) => {
 // AGENTS
 // get all agents
 ipcMain.on('agents:get-all', e => {
-  Agents.findAll()
+  Agents.findAll({ order: [['name', 'ASC']] })
     .map(el => el.get({ plain: true }))
     .then(rows => {
       e.sender.send('agents:sent-all', rows);
@@ -180,6 +182,20 @@ ipcMain.on('agents:delete', (e, id) => {
     },
   })
     .then(console.log('done'))
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+});
+
+// AVAILABILITIES
+// get all availabilities
+ipcMain.on('availabilities:get-all', e => {
+  Availabilities.findAll()
+    .map(el => el.get({ plain: true }))
+    .then(rows => {
+      e.sender.send('availabilities:sent-all', rows);
+    })
     .catch(err => {
       console.log(err);
       throw err;

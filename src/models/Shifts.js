@@ -40,4 +40,11 @@ Shifts.init(
   }
 );
 
+Shifts.associate = models => {
+  Shifts.hasMany(models.Availabilities, {
+    foreignKey: 'shift_id',
+    onDelete: 'CASCADE',
+  });
+};
+
 module.exports = Shifts;

@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 
+import AddAvailability from './AddAvailability';
+import AvailabilitiesTable from './AvailabilitiesTable';
+
 class Agents extends Component {
   state = {};
 
   render() {
     return (
       <div>
-        <h1 class="title has-text-centered">Availabilities</h1>
-        <section class="container">
-          <button id="save-availabilities" class="button is-info">
-            Save availabilities
-          </button>
-        </section>
+        <h1 className="title has-text-centered">Availabilities</h1>
 
-        <section class="section">
-          <div class="container">
-            <div class="columns is-centered">
-              <div id="availabilities"></div>
-            </div>
+        <AddAvailability />
+
+        <div className="columns is-centered">
+          <div className="column">
+            <AvailabilitiesTable />
           </div>
-        </section>
+        </div>
       </div>
     );
   }

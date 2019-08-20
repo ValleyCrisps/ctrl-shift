@@ -42,4 +42,11 @@ Agents.init(
   }
 );
 
+Agents.associate = models => {
+  Agents.hasMany(models.Availabilities, {
+    foreignKey: 'agent_id',
+    onDelete: 'CASCADE',
+  });
+};
+
 module.exports = Agents;
